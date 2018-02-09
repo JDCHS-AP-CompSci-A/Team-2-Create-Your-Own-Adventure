@@ -113,6 +113,7 @@ public class Menu {
         if (selection == 1) {
             new_player.remove_item(1);
         }
+        
         //use switch for this 
         
         System.out.println("Here is your new inventory: ");
