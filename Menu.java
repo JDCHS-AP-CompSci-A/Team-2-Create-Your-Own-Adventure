@@ -12,7 +12,7 @@ public class Menu {
     
     private Scanner sc = new Scanner(System.in); 
     private Player new_player; 
-    Crypt new_crypt = new Crypt(); 
+    private Crypt new_crypt = new Crypt(); 
     
     Menu(Player new_player, Crypt new_crypt) {
         this.new_player = new_player;
@@ -44,7 +44,7 @@ public class Menu {
     //main menu commands
     public void main_menu() {
         
-        /*if room/tile has monster, go to battle_menu(), else continue below
+        /*if room/tile where player is on has monster, go to battle_menu(), else continue below
         
         if(      ) {
             battle_menu() 
@@ -144,6 +144,80 @@ public class Menu {
         }
     }
     
+    //pick up item
+    public void pickup_item(Item item) {
+        new_player.add_item(item);
+    }
+    
+    //ask to inspect room or leave
+    public void room_senario() {
+        System.out.println("\nWould you like to 'INSPECT ROOM' or 'LEAVE'?\n");
+        
+        String command = input_command(); 
+        
+        if (command.equalsIgnoreCase("INSPECT ROOM")) {
+            //items + descriptions and room descriptions 
+            inspect_room_menu(); 
+        }
+        
+        else if (command.equalsIgnoreCase("LEAVE")) {
+            //go to hall 
+        }
+        
+        else {
+            System.out.println("That is an invalid command."); 
+            room_senario(); 
+        }
+    }
+    
+    //inspect room, if monster, item, or potion exists battle or asks to pick up
+    public void inspect_room_menu(/*tile*/) {
+        
+        if (/*monster exists*/) {
+            battle_menu(); 
+      
+        }
+        if (/*item exists*/) {
+            System.out.println("There is a " /*+ Item name */ + "in this room.");
+            System.out.println("Would you like to pick up " /*+ Item name */ + "?");
+            
+            String command = input_command(); 
+            
+            if (command.equalsIgnoreCase("YES")) {
+                pickup_item(item); 
+            }
+            
+            else if (command.equalsIgnoreCase("NO")) {
+                room_senario(); 
+            }
+            
+            else {
+                System.out.println("That is an invalid command."); 
+            }            
+        }
+    
+        if (/*potion exists*/) {
+            System.out.println("There is a potion in this room.");
+            System.out.println("Would you like to pick up the potion?"); 
+            
+            String command = input_command(); 
+            
+            if (command.equalsIgnoreCase("YES")) {
+                add_potion(new_player);
+            }
+            
+            else if (command.equalsIgnoreCase("NO")) {
+                room_senario(); 
+            }
+            
+            else {
+                System.out.println("That is an invalid command."); 
+            }
+        } 
+        room_senario(); 
+    }
+    
+    //use a potion
     public void use_potion() {
         if (new_player.potion_inventory > 0) {
             System.out.println("\nA potion has been used.");
@@ -181,6 +255,7 @@ public class Menu {
         if (selection.equalsIgnoreCase("ENTER ROOM")) {                        
             //check if room
             //call room 
+            room_senario(); 
         }
     }
     
@@ -303,6 +378,7 @@ public class Menu {
         return new_player.health;
     }
     
+    //print the map 
     public void view_map(Crypt new_crypt) {
         new_crypt.printMap();
     } 
