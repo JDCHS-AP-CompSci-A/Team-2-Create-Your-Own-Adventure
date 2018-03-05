@@ -42,7 +42,7 @@ public class Player {
         }
         
         System.out.println("Potion count: " + potion_inventory);
-        return "\n "; 
+        return "  "; 
     }
      
 }
