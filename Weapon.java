@@ -5,96 +5,80 @@
  */
 
 import java.util.ArrayList;
+import java.lang.*;
 
 /**
  *
  * @author yhuynh
  */
-public class Weapon {
+public class Weapon extends Item {
 
-    int attack_strength;
-    int durability;
-    int damage;
-   
-    public static Weapon getWeapon(ItemList item) {
-         ArrayList<Item> array = new ArrayList<Item>();        
-        Weapon weapon = new Weapon();
-        return weapon;
+    public int durability;
+    public double damage;
+    public String name;
+    public double hit_chance;
+
+    public Weapon(String name, int durability, double damage, double hit_chance) {
+        super(name);
+        this.damage = damage;
+        this.durability = durability;
+        this.hit_chance = hit_chance;
     }
 
-    private void initItems() {
-        Item shotgun = new Item("Shotgun");
-        Item bow = new Item("Bow");
-        Item gun = new Item("Gun");
+    public double attack() {
+        double roll = Math.random();
+        if (roll >= this.hit_chance) {
+            this.durability = this.durability - 1;
+            System.out.println("");
+            return this.damage;
 
-    }
-
-    public String getDescription(String gun) {
-        return "A weapon with a really high damage rate";
-    }
-
-    public int currentAmmo = 15;
-
-    public Bullet fire() {
-        Bullet bullet = createBullet();
-
-        currentAmmo--;
-        return null;
-    }
-
-    private Bullet createBullet() {
-        int bullet;
-
-        return null;
-    }
-
-    private static void Giveplayer_weapon(boolean hasWeapon, int w) {
-        hasWeapon = true;
-    }
-
-    public void consume() {
-
-    }
-
-    public String toString() {
-        return "";
-    }
-
-    private static class Bullet {
-
-        public Bullet() {
+        } else {
+            return 0.00;
         }
     }
 
+    public String toString() {
+
+        return name + " " + 50 + 25 + .5;
+
+    }
+
 }
 
-class Potion extends Item {
+class Potion {
 
-    public Potion(String health) {
-        super(health);
-    }
-    int health;
+    Player player;
+    int health_recovery = 25;
+    String name;
 
-    public void consume() {
-
-    }
-
-    public String getName() {
-        return "Health potion";
-    }
-
-    public String getDescription() {
-        return " This potion will heal 2% of your health every 30 seconds ";
-    }
-}
-
-class Armour extends Item {
-
-    public Armour(String sword) {
-        super(sword);
+    public Potion(Player player, String name) {
+        this.player = player;
+        this.name = name;
     }
 
     public void consume() {
-
+        int new_health = this.player.health + this.health_recovery;
+        System.out.println("You drink a " + this.name + ". Your health recovered from " + this.player.health + " to " + new_health);
+        this.player.health += this.health_recovery;
     }
+
 }
+
+//class Armour extends Item {
+//
+//    int defense;
+//
+//    public Armour(Player player, String name, int defense) {
+//        super(player, name);
+//        this.defense = defense;
+//
+//    }
+//
+//    public void consume() {
+//        int player_defense= this.player.defense + this.defense;
+//     
+//        System.out.println("You wear a " + this.name + ".Your defense goes up from " +this.player.defense + " to " + player_defense );
+//        this.player.defense +=defense;
+//    }
+//    
+//}
