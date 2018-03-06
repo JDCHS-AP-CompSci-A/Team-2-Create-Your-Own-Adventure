@@ -22,10 +22,20 @@ public class Tile {
         String R="   ";
         String L="   ";
         if (RoomR != null){
-        R="[ ]";
+            if (RoomR.monster!=null){
+        R="[@]";
+            }
+            else {
+                R="[ ]";
+        }
         }
         if (RoomL!=null){
-        L="[ ]";
+            if (RoomL.monster!=null){
+        L="[@]";
+            }
+            else{
+            L="[ ]";
+            }
         }
         if (player != null)
         {

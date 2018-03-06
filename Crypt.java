@@ -47,21 +47,24 @@ public class Crypt {
             }  
             new_tile.addMonster(m);
             r = rand.nextInt(10);
+            int t = rand.nextInt(1);
             if (r<6) {
             
             }
             else if (r<9){
             int tf = rand.nextInt(2);
             if(tf==0){
-                new_tile.RoomL= this.Desc_db.get(r);
+                new_tile.RoomL= this.Desc_db.get(t);
+                new_tile.RoomL.fill_room();
             }
             else {
-                new_tile.RoomR= this.Desc_db.get(r);
+                new_tile.RoomR= this.Desc_db.get(t);
+                new_tile.RoomR.fill_room();
             }
             }
             else{
-            new_tile.RoomL=this.Desc_db.get(r);
-            new_tile.RoomR=this.Desc_db.get(r);
+            new_tile.RoomL=this.Desc_db.get(t);
+            new_tile.RoomR=this.Desc_db.get(t);
             }
             floorplan.add(new_tile);
         }
@@ -82,10 +85,10 @@ public class Crypt {
     }
     
     public void fill_Rcat(){
-    for (int i = 0; i<10; i++){
-            EmptyRoom BlankRoom = new EmptyRoom();
-            this.Desc_db.add(BlankRoom);
-        }
+    this.Desc_db.add(new EmptyRoom());
+    this.Desc_db.add(new MonsterRoom());
+    
+    
     }
     public void printMap(){
     for (int i = 0; i<this.floorplan.size(); i++){

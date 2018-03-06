@@ -30,6 +30,6 @@ Crypt crypt2 = new Crypt();
                 else if (r2>95 && r2<101){
                 m = crypt2.monster_db.get(6);
                 }
-
+                this.monster = m;
 }
 }
