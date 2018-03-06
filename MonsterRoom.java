@@ -6,6 +6,8 @@ public class MonsterRoom extends Desc {
         Random rand= new Random();
 int r2 = rand.nextInt(100)+1;
 Crypt crypt2 = new Crypt();
+crypt2.fill_cat();
+
                 if (r2<31){
                 m = crypt2.monster_db.get(7);
                 }
@@ -30,6 +32,6 @@ Crypt crypt2 = new Crypt();
                 else if (r2>95 && r2<101){
                 m = crypt2.monster_db.get(6);
                 }
-                this.monster = m;
+                addMonster(m);
 }
 }

@@ -47,7 +47,7 @@ public class Crypt {
             }  
             new_tile.addMonster(m);
             r = rand.nextInt(10);
-            int t = rand.nextInt(1);
+            int t = rand.nextInt(2);
             if (r<6) {
             
             }
@@ -65,6 +65,8 @@ public class Crypt {
             else{
             new_tile.RoomL=this.Desc_db.get(t);
             new_tile.RoomR=this.Desc_db.get(t);
+            new_tile.RoomR.fill_room();
+            new_tile.RoomL.fill_room();
             }
             floorplan.add(new_tile);
         }
