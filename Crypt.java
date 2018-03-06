@@ -15,14 +15,39 @@ public class Crypt {
             Tile new_tile = new Tile();
 
             Monster m = null;
-            if (r<6){
-                m = this.monster_db.get(r);
+            if (r<5){
+                 int r2 = rand.nextInt(100)+1;
+                if (r2<31){
+                m = monster_db.get(7);
+                }
+                else if (r2>30 && r2<51){
+                m = monster_db.get(0);
+                }
+                else if (r2>50 && r2<66){
+                m = monster_db.get(1);
+                }
+                else if (r2>65 && r2<76){
+                m = monster_db.get(2);
+                }
+                else if (r2>75 && r2<86){
+                m = monster_db.get(4);
+                }
+                else if (r2>85 && r2<91){
+                m = monster_db.get(5);
+                }
+                else if (r2>90 && r2<96){
+                m = monster_db.get(3);
+                }
+                else if (r2>95 && r2<101){
+                m = monster_db.get(6);
+                }
+                
                 
 
             }  
             new_tile.addMonster(m);
             r = rand.nextInt(10);
-            if (r<7) {
+            if (r<6) {
             
             }
             else if (r<9){
@@ -40,12 +65,20 @@ public class Crypt {
             }
             floorplan.add(new_tile);
         }
+        Tile new_tile = new Tile();
+        Player player = new Player();
+        new_tile.addPlayer(player);
+        floorplan.add(new_tile);
     }
     public void fill_cat(){
-        for (int i = 0; i<10; i++){
-            Skeleton skeleton = new Skeleton();
-            this.monster_db.add(skeleton);
-        }
+         this.monster_db.add(new Skeleton());
+        this.monster_db.add(new Zombie());
+        this.monster_db.add(new Spider());
+        this.monster_db.add(new Spirit());
+        this.monster_db.add(new Goblin());
+        this.monster_db.add(new Imp());
+        this.monster_db.add(new Ghoul());
+        this.monster_db.add(new Slime());
     }
     
     public void fill_Rcat(){

@@ -13,6 +13,9 @@ public class Tile {
     public void addMonster(Monster monster) {
         this.monster = monster;
     }
+    public void addPlayer(Player player){
+    this.player = player;
+    }
     
     public String toString()
     {
@@ -24,9 +27,12 @@ public class Tile {
         if (RoomL!=null){
         L="[ ]";
         }
-        if (monster == null)
+        if (player != null)
         {
-        return L+"[ ]" + R;
+        return L+"[X]" + R;
+        }
+        else if(monster== null){
+        return L+"[ ]"+R;
         }
         else {
         return L+"[@]" +R;
