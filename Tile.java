@@ -16,6 +16,9 @@ public class Tile {
     public void addPlayer(Player player){
     this.player = player;
     }
+    public void addItem(Item item){
+    this.item = item;
+    }
     
     public String toString()
     {

@@ -6,8 +6,10 @@ public class Crypt {
     ArrayList<Tile> floorplan = new ArrayList<Tile>(); 
     ArrayList<Monster> monster_db = new ArrayList<Monster>();
     ArrayList<Desc> Desc_db = new ArrayList<Desc>();
+    ArrayList<Weapon> Weapon_db = new ArrayList<Weapon>();
     public void genWorld(){
         this.fill_cat();
+        this.fill_Wcat();
         this.fill_Rcat();
         for (int i = 0; i < 10; i++){
             Random rand = new Random();
@@ -91,6 +93,10 @@ public class Crypt {
     this.Desc_db.add(new MonsterRoom());
     
     
+    }
+    public void fill_Wcat(){
+    Weapon GodSword = new Weapon("God Sword", 1000, 1000, 100);
+    this.Weapon_db.add(GodSword);
     }
     public void printMap(){
     for (int i = 0; i<this.floorplan.size(); i++){
