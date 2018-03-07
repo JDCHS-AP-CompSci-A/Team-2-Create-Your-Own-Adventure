@@ -5,7 +5,7 @@ import java.util.Random;
 public class Crypt {
     ArrayList<Tile> floorplan = new ArrayList<Tile>(); 
     ArrayList<Monster> monster_db = new ArrayList<Monster>();
-    ArrayList<Desc> Desc_db = new ArrayList<Desc>();
+    ArrayList<Desc> Desc_db = new ArrayList<Desc>();    
     public void genWorld(){
         this.fill_cat();
         this.fill_Rcat();
@@ -65,10 +65,7 @@ public class Crypt {
             }
             floorplan.add(new_tile);
         }
-        Tile new_tile = new Tile();
-        Player player = new Player();
-        new_tile.addPlayer(player);
-        floorplan.add(new_tile);
+        
     }
     public void fill_cat(){
          this.monster_db.add(new Skeleton());
@@ -87,10 +84,31 @@ public class Crypt {
             this.Desc_db.add(BlankRoom);
         }
     }
-    public void printMap(){
-    for (int i = 0; i<this.floorplan.size(); i++){
+    public void printMap(Player new_player){
+        
+        int j = new_player.position;
+        
+        for (int i = 0; i<this.floorplan.size(); i++){
+       
+       
+            String R="   ";
+            String L="   ";
+        
+        
             Tile tile = this.floorplan.get(i);
-            System.out.println(tile);
+            if (i == j) {
+                if (tile.RoomR != null){
+                    R="[ ]";
+                }
+                if (tile.RoomL!=null){
+                    L="[ ]";
+                }
+  
+                System.out.println(L + "[X]" + R);
+            }
+            else {
+                System.out.println(tile);
+            }
         }
-}
+    }
 }

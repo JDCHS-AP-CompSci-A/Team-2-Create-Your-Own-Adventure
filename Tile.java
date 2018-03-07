@@ -18,24 +18,23 @@ public class Tile {
     }
     
     public String toString()
-    {
+    {      
         String R="   ";
         String L="   ";
         if (RoomR != null){
-        R="[ ]";
+            R="[ ]";
         }
         if (RoomL!=null){
-        L="[ ]";
+            L="[ ]";
         }
-        if (player != null)
-        {
-        return L+"[X]" + R;
+        if (player != null){
+            return L+"[X]" + R;
         }
         else if(monster== null){
-        return L+"[ ]"+R;
+            return L+"[ ]"+R;
         }
         else {
-        return L+"[@]" +R;
+            return L+"[@]" +R;
         }
         
         
