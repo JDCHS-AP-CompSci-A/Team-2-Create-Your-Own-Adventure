@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.util.ArrayList;
 import java.lang.*;
@@ -19,7 +14,7 @@ public class Weapon extends Item {
     public double hit_chance;
 
     public Weapon(String name, int durability, double damage, double hit_chance) {
-        super(name);
+        this.name = name;
         this.damage = damage;
         this.durability = durability;
         this.hit_chance = hit_chance;
