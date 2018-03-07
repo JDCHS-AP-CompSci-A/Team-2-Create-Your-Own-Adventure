@@ -49,7 +49,8 @@ public class Crypt {
             }  
             new_tile.addMonster(m);
             r = rand.nextInt(10);
-            int t = rand.nextInt(2);
+            int t = rand.nextInt(3);
+            int J = rand.nextInt(3);
             if (r<6) {
             
             }
@@ -66,7 +67,7 @@ public class Crypt {
             }
             else{
             new_tile.RoomL=this.Desc_db.get(t);
-            new_tile.RoomR=this.Desc_db.get(t);
+            new_tile.RoomR=this.Desc_db.get(J);
             new_tile.RoomR.fill_room();
             new_tile.RoomL.fill_room();
             }
@@ -91,7 +92,7 @@ public class Crypt {
     public void fill_Rcat(){
     this.Desc_db.add(new EmptyRoom());
     this.Desc_db.add(new MonsterRoom());
-    
+    this.Desc_db.add(new ItemRoom());
     
     }
     public void fill_Wcat(){
