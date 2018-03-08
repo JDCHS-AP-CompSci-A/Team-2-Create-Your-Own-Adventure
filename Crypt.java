@@ -5,7 +5,7 @@ import java.util.Random;
 public class Crypt {
     ArrayList<Tile> floorplan = new ArrayList<Tile>(); 
     ArrayList<Monster> monster_db = new ArrayList<Monster>();
-    ArrayList<Desc> Desc_db = new ArrayList<Desc>();    
+    ArrayList<Desc> Desc_db = new ArrayList<Desc>();
     public void genWorld(){
         this.fill_cat();
         this.fill_Rcat();
