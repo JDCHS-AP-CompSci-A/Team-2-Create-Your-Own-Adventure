@@ -6,8 +6,10 @@ public class Crypt {
     ArrayList<Tile> floorplan = new ArrayList<Tile>(); 
     ArrayList<Monster> monster_db = new ArrayList<Monster>();
     ArrayList<Desc> Desc_db = new ArrayList<Desc>();
+    ArrayList<Weapon> Weapon_db = new ArrayList<Weapon>();
     public void genWorld(){
         this.fill_cat();
+        this.fill_Wcat();
         this.fill_Rcat();
         for (int i = 0; i < 10; i++){
             Random rand = new Random();
@@ -47,21 +49,27 @@ public class Crypt {
             }  
             new_tile.addMonster(m);
             r = rand.nextInt(10);
+            int t = rand.nextInt(3);
+            int J = rand.nextInt(3);
             if (r<6) {
             
             }
             else if (r<9){
             int tf = rand.nextInt(2);
             if(tf==0){
-                new_tile.RoomL= this.Desc_db.get(r);
+                new_tile.RoomL= this.Desc_db.get(t);
+                new_tile.RoomL.fill_room();
             }
             else {
-                new_tile.RoomR= this.Desc_db.get(r);
+                new_tile.RoomR= this.Desc_db.get(t);
+                new_tile.RoomR.fill_room();
             }
             }
             else{
-            new_tile.RoomL=this.Desc_db.get(r);
-            new_tile.RoomR=this.Desc_db.get(r);
+            new_tile.RoomL=this.Desc_db.get(t);
+            new_tile.RoomR=this.Desc_db.get(J);
+            new_tile.RoomR.fill_room();
+            new_tile.RoomL.fill_room();
             }
             floorplan.add(new_tile);
         }
@@ -79,10 +87,14 @@ public class Crypt {
     }
     
     public void fill_Rcat(){
-    for (int i = 0; i<10; i++){
-            EmptyRoom BlankRoom = new EmptyRoom();
-            this.Desc_db.add(BlankRoom);
-        }
+    this.Desc_db.add(new EmptyRoom());
+    this.Desc_db.add(new MonsterRoom());
+    this.Desc_db.add(new ItemRoom());
+    
+    }
+    public void fill_Wcat(){
+    Weapon GodSword = new Weapon("God Sword", 1000, 1000, 100);
+    this.Weapon_db.add(GodSword);
     }
     public void printMap(Player new_player){
         

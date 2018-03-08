@@ -19,7 +19,7 @@ public class Weapon extends Item {
     public double hit_chance;
 
     public Weapon(String name, int durability, double damage, double hit_chance) {
-        super(name);
+        this.name = name;
         this.damage = damage;
         this.durability = durability;
         this.hit_chance = hit_chance;

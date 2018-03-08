@@ -114,6 +114,6 @@ Get the basic movement through game going
 
 - Edward and Hayden --> Working on gen_world(Crypt) function in Game Controller, if have time work on ability to place items on tiles/rooms
 
-- Kyllie and Tina --> Working on Menu class and primary function within to move through game (main_menu(Tile)), if have time work on more functions (like inventory, move, and battle)
+- Kyllie: currently working on trying to get the player to move/print on map 
 Edward and Hayden's To Do list:
 Flesh out Monster and Room Templates 
