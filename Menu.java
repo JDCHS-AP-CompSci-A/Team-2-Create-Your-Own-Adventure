@@ -13,6 +13,7 @@ public class Menu {
     private Scanner sc = new Scanner(System.in); 
     private Player new_player; 
     private Crypt new_crypt = new Crypt(); 
+    private Tile new_tile = new Tile(); 
     
     Menu(Player new_player, Crypt new_crypt) {
         this.new_player = new_player;
@@ -36,8 +37,8 @@ public class Menu {
     //introduction menu
     public void intro_menu() {
         System.out.println("introduction in progress");
-        System.out.println("'@' = a monster\n"); 
-        //if have time, will allow player to choose class (mage, warrior, ranged)
+        System.out.println("'@' = a monster"); 
+        System.out.println("'X' = player position\n");
         main_menu(); 
     }
      
@@ -76,7 +77,7 @@ public class Menu {
         
         else if (selection.equalsIgnoreCase("MAP")) {
             System.out.println("\nHere is the map:\n"); 
-            view_map(new_crypt); 
+            view_map(new_crypt, new_player); 
             main_menu(); 
         }
         //leads to move menu
@@ -234,6 +235,32 @@ public class Menu {
             main_menu();
         }
     }
+    
+    //trying to get player to move foward
+    //very close, need to get player to move based on crypt and not just creating new slots in arraylist
+    public Player move_foward(Player new_player, Tile new_tile, Crypt new_crypt) {
+        
+        new_player=this.new_player;
+        new_tile=this.new_tile; 
+        new_crypt=this.new_crypt;
+        
+        new_player.position--; 
+        
+        return new_player; 
+    }
+    
+    public Player move_back(Player new_player, Tile new_tile, Crypt new_crypt) {
+        
+        new_player=this.new_player;
+        new_tile=this.new_tile; 
+        new_crypt=this.new_crypt;
+        
+        new_player.position++; 
+        
+        return new_player; 
+    }
+    
+    
     //movement menu
     public void move_menu() {
         
@@ -243,12 +270,16 @@ public class Menu {
         
         //move foward
         if (selection.equalsIgnoreCase("FOWARD")) {
-            new_player.position++; 
+            move_foward(new_player, new_tile, new_crypt); 
+            view_map(new_crypt, new_player); 
+            main_menu(); 
         }
         
         //move backwards
         if (selection.equalsIgnoreCase("BACKWARDS")) {
-            new_player.position--;
+            move_back(new_player, new_tile, new_crypt);
+            view_map(new_crypt, new_player); 
+            main_menu();
         }
         
         //enter room
@@ -379,7 +410,7 @@ public class Menu {
     }
     
     //print the map 
-    public void view_map(Crypt new_crypt) {
-        new_crypt.printMap();
+    public void view_map(Crypt new_crypt, Player new_player) {
+        new_crypt.printMap(new_player);
     } 
 }

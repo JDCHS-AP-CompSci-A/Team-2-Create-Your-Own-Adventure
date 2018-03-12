@@ -21,12 +21,24 @@ public class Tile {
     }
     
     public String toString()
-    {
+    {      
         String R="   ";
         String L="   ";
         if (RoomR != null){
+player_position
+            R="[ ]";
+        }
+        if (RoomL!=null){
+            L="[ ]";
+        }
+        if (player != null){
+            return L+"[X]" + R;
+
             if (RoomR.monster!=null){
-        R="[@]";
+        R="[░]";
+            }
+            else if(RoomR.item!=null){
+            R="[Ï]";
             }
             else {
                 R="[ ]";
@@ -34,7 +46,10 @@ public class Tile {
         }
         if (RoomL!=null){
             if (RoomL.monster!=null){
-        L="[@]";
+        L="[░]";
+            }
+            else if(RoomL.item!=null){
+            L="[Ï]";
             }
             else{
             L="[ ]";
@@ -42,13 +57,18 @@ public class Tile {
         }
         if (player != null)
         {
-        return L+"[X]" + R;
+        return L+"[ߐ]" + R;
+master
         }
         else if(monster== null){
-        return L+"[ ]"+R;
+            return L+"[ ]"+R;
         }
         else {
-        return L+"[@]" +R;
+ player_position
+            return L+"[@]" +R;
+
+        return L+"[Ӝ]" +R;
+ master
         }
         
         
