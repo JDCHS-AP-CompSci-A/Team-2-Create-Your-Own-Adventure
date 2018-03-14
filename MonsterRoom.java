@@ -1,4 +1,4 @@
- import java.util.Random;
+import java.util.Random;
 public class MonsterRoom extends Desc {
    
     public void fill_room(){

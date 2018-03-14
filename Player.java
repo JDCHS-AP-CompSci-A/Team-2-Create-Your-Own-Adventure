@@ -18,7 +18,11 @@ public class Player {
     
     Player(){ 
     }
-    
+    public void add_GS(){
+        Weapon GodSword = new Weapon("God Sword", 1000, 1000, 100);
+    this.inventory.add(GodSword);
+    }
+            
     //add item
     public void add_item(Item item) {
         inventory.add(item); 
@@ -38,7 +42,7 @@ public class Player {
         
         //print "empty" if empty
         if (inventory.size() == 0) {
-            System.out.println("(weapons inventory empty)"); 
+            System.out.println("(Weapons inventory empty)"); 
         }
         
         System.out.println("Potion count: " + potion_inventory);

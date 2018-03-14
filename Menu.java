@@ -38,6 +38,7 @@ public class Menu {
         System.out.println("introduction in progress");
         System.out.println("'@' = a monster"); 
         System.out.println("'X' = player position\n");
+
         main_menu(); 
     }
      
@@ -150,7 +151,7 @@ public class Menu {
     }
     
     //ask to inspect room or leave
-    public void room_senario() {
+    public void room_scenario() {
         System.out.println("\nWould you like to 'INSPECT ROOM' or 'LEAVE'?\n");
         
         String command = input_command(); 
@@ -166,15 +167,15 @@ public class Menu {
         
         else {
             System.out.println("That is an invalid command."); 
-            room_senario(); 
+            room_scenario(); 
         }
     }
     
     //inspect room, if monster, item, or potion exists battle or asks to pick up
-    public void inspect_room_menu(/*tile*/) {
+    public void inspect_room_menu () {
         
         if (/*monster exists*/) {
-            battle_menu(); 
+            battle_menu();  
       
         }
         if (/*item exists*/) {
@@ -188,7 +189,7 @@ public class Menu {
             }
             
             else if (command.equalsIgnoreCase("NO")) {
-                room_senario(); 
+                room_scenario(); 
             }
             
             else {
@@ -207,14 +208,14 @@ public class Menu {
             }
             
             else if (command.equalsIgnoreCase("NO")) {
-                room_senario(); 
+                room_scenario(); 
             }
             
             else {
                 System.out.println("That is an invalid command."); 
             }
         } 
-        room_senario(); 
+        room_scenario(); 
     }
     
     //use a potion
@@ -274,7 +275,7 @@ public class Menu {
         if (selection.equalsIgnoreCase("ENTER ROOM")) {                        
             //check if room
             //call room 
-            room_senario(); 
+            room_scenario(); 
         }
         
         else {
@@ -295,14 +296,14 @@ public class Menu {
         
         //select first item
         if (selection == 1) {
-            System.out.println("you selected " + new_player.inventory.get(0).name() + ".");
+            System.out.println("You selected " + new_player.inventory.get(0).name() + ".");
             selected = new_player.inventory.get(0); 
         }  
         
         //select second item if exist
         else if (selection == 2) {
             if (size >= 2) {
-                System.out.println("you selected " + new_player.inventory.get(1).name() + ".");
+                System.out.println("You selected " + new_player.inventory.get(1).name() + ".");
                 selected = new_player.inventory.get(1); 
             }
             else {
@@ -314,7 +315,7 @@ public class Menu {
         //select third item if exist
         else if (selection == 3) {
             if (size >= 3) {
-                System.out.println("you selected " + new_player.inventory.get(2).name() + ".");
+                System.out.println("You selected " + new_player.inventory.get(2).name() + ".");
                 selected = new_player.inventory.get(3); 
             }
             else {
@@ -403,7 +404,7 @@ public class Menu {
     }
     
     //print the map 
-    public void view_map(Crypt new_crypt) {
+    public void view_map(Crypt new_crypt, Player new_player) {
         new_crypt.printMap();
     } 
 }
