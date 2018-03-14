@@ -16,7 +16,7 @@ public class TW {
     public static void main(String[] args) {
 
         Player new_player = new Player();
-        Item test = new Item("Weapons");
+        Item test = new Item();
         
         
         Weapon weapon = new Weapon("Sword", 40, 25, .3);

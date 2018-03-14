@@ -70,11 +70,13 @@ public class Crypt {
             new_tile.RoomR.fill_room();
             new_tile.RoomL.fill_room();
             }
+            new_tile.Pos=i;
             floorplan.add(new_tile);
         }
         Tile new_tile = new Tile();
         Player player = new Player();
         new_tile.addPlayer(player);
+        new_tile.Pos=11;
         floorplan.add(new_tile);
     }
     public void fill_cat(){

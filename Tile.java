@@ -8,6 +8,7 @@ public class Tile {
     Item item;
     Desc RoomL;
     Desc RoomR;
+    int Pos;
     
     
     public void addMonster(Monster monster) {
@@ -26,7 +27,7 @@ public class Tile {
         String L="   ";
         if (RoomR != null){
             if (RoomR.monster!=null){
-        R="[ᑈ]";
+        R="[@]";
             }
             else {
                 R="[ ]";
@@ -34,7 +35,7 @@ public class Tile {
         }
         if (RoomL!=null){
             if (RoomL.monster!=null){
-        L="[ᑈ]";
+        L="[@]";
             }
             else{
             L="[ ]";
