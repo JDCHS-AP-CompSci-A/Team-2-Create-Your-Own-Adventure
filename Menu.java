@@ -36,7 +36,7 @@ public class Menu {
     //introduction menu
     public void intro_menu() {
         System.out.println("introduction in progress");
-        System.out.println("'@' = a monster\n"); 
+        System.out.println("'@' = a monster"); 
         System.out.println("'X' = player position\n");
         main_menu(); 
     }
@@ -243,12 +243,31 @@ public class Menu {
         
         //move foward
         if (selection.equalsIgnoreCase("FOWARD")) {
-            new_player.position++; 
+            if (new_player.position > 0) {
+                new_player.position--;
+                new_crypt.move_foward(new_player, new_player.position);
+                view_map(new_crypt);
+                main_menu();
+            }
+            
+            else {
+                System.out.println("You have made it to the end of the hall.");
+            }
         }
         
         //move backwards
         if (selection.equalsIgnoreCase("BACKWARDS")) {
-            new_player.position--;
+            if (new_player.position < 10) {
+                new_player.position++;
+                new_crypt.move_backward(new_player, new_player.position);
+                view_map(new_crypt);
+                main_menu();
+            }  
+            
+            else {
+                System.out.println("You are at the beginning of the hall. You cannot move back.");
+                move_menu();
+            }
         }
         
         //enter room
@@ -256,6 +275,11 @@ public class Menu {
             //check if room
             //call room 
             room_senario(); 
+        }
+        
+        else {
+            System.out.println("That is an invalid command. Please try again.");
+            move_menu();
         }
     }
     

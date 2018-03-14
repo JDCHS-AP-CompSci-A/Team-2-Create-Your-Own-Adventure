@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Player {
     
-    int position = 9; 
+    int position = 10; 
     int health = 100;
     int potion_inventory = 0; 
     ArrayList <Item> inventory = new ArrayList <Item>(); 
