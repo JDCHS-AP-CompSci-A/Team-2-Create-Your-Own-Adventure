@@ -1,79 +1,75 @@
+/*
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 import java.util.ArrayList;
 import java.lang.*;
 
 /**
- *
- * @author yhuynh
- */
-public class Weapon extends Item {
+*
+* @author yhuynh
+*/
+public class Weapon  {
 
-    public int durability;
-    public double damage;
-    public String name;
-    public double hit_chance;
+   public int durability;
+   public double damage;
+   public String name;
+   public double hit_chance;
+   public double roll;
 
-    public Weapon(String name, int durability, double damage, double hit_chance) {
-        this.name = name;
-        this.damage = damage;
-        this.durability = durability;
-        this.hit_chance = hit_chance;
-    }
+   public Weapon(String name, int durability, double damage, double hit_chance) {
+       this.name = name;
+       this.damage = damage;
+       this.durability = durability;
+       this.hit_chance = hit_chance;
+     
+   }
 
-    public double attack() {
-        double roll = Math.random();
-        if (roll >= this.hit_chance) {
-            this.durability = this.durability - 1;
-            System.out.println("");
-            return this.damage;
+   public double attack() {
+       double roll = Math.random();
+       if (roll >= this.hit_chance) {
+           this.durability = this.durability - 1;
+           System.out.println("HIT");
 
-        } else {
-            return 0.00;
-        }
-    }
+           if (this.durability <= 0) {
 
-    public String toString() {
+               System.out.println("Your weapon is broken");
+               return 0.00;
+              
+           }
+           return this.damage;
 
-        return name + " " + 50 + 25 + .5;
+       } else {
+           System.out.println("MISS");
+           return 0.00;
+       }
 
-    }
+   }
 
+   public String toString() {
+
+       return this.name + " " + "\u2694 " + this.damage + " \u2765 " + this.durability;
+
+   }
 }
 
 class Potion {
 
-    Player player;
-    int health_recovery = 25;
-    String name;
+   Player player;
+   int health_recovery = 25;
+   String name;
 
-    public Potion(Player player, String name) {
-        this.player = player;
-        this.name = name;
-    }
+   public Potion(Player player, String name) {
+       this.player = player;
+       this.name = name;
+   }
 
-    public void consume() {
-        int new_health = this.player.health + this.health_recovery;
-        System.out.println("You drink a " + this.name + ". Your health recovered from " + this.player.health + " to " + new_health);
-        this.player.health += this.health_recovery;
-    }
+   public void consume() {
+       int new_health = this.player.health + this.health_recovery;
+       System.out.println("You drink a " + this.name + ". Your health recovered from " + this.player.health + " to " + new_health);
+       this.player.health += this.health_recovery;
+   }
 
 }
-
-//class Armour extends Item {
-//
-//    int defense;
-//
-//    public Armour(Player player, String name, int defense) {
-//        super(player, name);
-//        this.defense = defense;
-//
-//    }
-//
-//    public void consume() {
-//        int player_defense= this.player.defense + this.defense;
-//     
-//        System.out.println("You wear a " + this.name + ".Your defense goes up from " +this.player.defense + " to " + player_defense );
-//        this.player.defense +=defense;
-//    }
-//    
-//}
