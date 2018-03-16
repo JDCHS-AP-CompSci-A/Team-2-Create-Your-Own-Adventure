@@ -5,54 +5,53 @@ public class Tile {
     boolean Room;
     Monster monster;
     Player player;
-    Item item;
+    Weapon item;
     Desc RoomL;
     Desc RoomR;
-    int Pos;
+    int Pos = 10;
     
     
-    public void addMonster(Monster monster) {
+    public void addMonster(Monster monster){
         this.monster = monster;
     }
     public void addPlayer(Player player){
-    this.player = player;
+        this.player = player;
     }
-    public void addItem(Item item){
-    this.item = item;
+    public void addItem(Weapon item){
+        this.item = item;
     }
     
-    public String toString()
-    {
+    public void removePlayer(Player player){
+        this.player=null;
+    }
+    
+    public String toString() {
         String R="   ";
         String L="   ";
         if (RoomR != null){
             if (RoomR.monster!=null){
-        R="[@]";
+                R="[@]";
             }
             else {
                 R="[ ]";
-        }
+            }
         }
         if (RoomL!=null){
             if (RoomL.monster!=null){
-        L="[@]";
+                L="[@]";
             }
             else{
-            L="[ ]";
+                L="[ ]";
             }
         }
-        if (player != null)
-        {
-        return L+"[X]" + R;
+        if (player != null){
+            return L+"[X]" + R;
         }
         else if(monster== null){
-        return L+"[ ]"+R;
+            return L+"[ ]"+R;
         }
         else {
-        return L+"[@]" +R;
-        }
-        
-        
+            return L+"[@]" +R;
+        }  
     }
-
 }
