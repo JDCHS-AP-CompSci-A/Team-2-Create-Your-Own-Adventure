@@ -8,7 +8,7 @@ public class Tile {
     Weapon item;
     Desc RoomL;
     Desc RoomR;
-    int Pos = 10;
+    int Pos;
     
     
     public void addMonster(Monster monster){
