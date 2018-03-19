@@ -40,9 +40,24 @@ public class Menu {
         System.out.println("'X' = player position\n");
         main_menu(); 
     }
-     
+    
+    public boolean check_if_monster(Player new_player, Crypt new_crypt) {
+        
+        int i = new_player.position;
+        Tile new_tile = new_crypt.floorplan.get(i);
+        
+        if (new_tile.monster == null) {
+            return false;
+        }
+        return true;        
+    }
+    
     //main menu commands
     public void main_menu() {
+        
+        if (check_if_monster(new_player, new_crypt)) {
+            battle_menu();          
+        }
         
         /*if room/tile where player is on has monster, go to battle_menu(), else continue below
         
@@ -123,7 +138,7 @@ public class Menu {
                 battle_menu(); 
             }
             else {
-                Item selected_weapon = weapon_selection(new_player); 
+                Weapon selected_weapon = weapon_selection(new_player); 
                 //attack menu based on game controller   
             }
         }
