@@ -290,6 +290,7 @@ public class Menu {
         
         //move backwards
         if (selection.equalsIgnoreCase("BACKWARDS")) {
+            //check to make sure that can move backwards (not at beginning of hall) 
             if (new_player.position < 10) {
                 new_player.position++;
                 new_crypt.move_backward(new_player, new_player.position);
@@ -316,6 +317,12 @@ public class Menu {
         }
     }
     
+    /**
+     * Checks to see if a room exists directly adjacent to player
+     * @param new_player the same player used throughout the game 
+     * @param new_crypt the same crypt used throughout the game 
+     * @return whether or not the room exists (true = room exists)
+     */
     public boolean check_if_room(Player new_player, Crypt new_crypt) {
         int i = new_player.position;
         Tile new_tile = new_crypt.floorplan.get(i);
@@ -331,7 +338,11 @@ public class Menu {
         return room_exists;  
     }
     
-    //allows player to select a weapon for battle, will only be called if there is at least on item in inventory
+    /**
+     * Allows player to select a weapon, will only be called if inventory is not null
+     * @param new_player the same player used throughout the game 
+     * @return the weapon selected
+     */
     public Weapon weapon_selection(Player new_player) {
         int size = new_player.inventory.size(); 
 
@@ -390,9 +401,10 @@ public class Menu {
         return selected; 
     }
     
-    
-    
-    //menu to drop an item 
+    /**
+     * Allows player to drop an item from inventory
+     * @param new_player the same player used throughout the game 
+     */
     public void drop_item_menu(Player new_player) {
         
         System.out.println("\nWhich item would you like to drop? (Input number next to item)");
@@ -425,32 +437,52 @@ public class Menu {
         main_menu();    
     }   
     
-    //add potion to potion inventory
+    /**
+     * Adds a potion to the potion inventory by integer count
+     * @param new_player the same player used throughout the game 
+     * @return the updated potion count
+     */
     public int add_potion(Player new_player) {
         new_player.potion_inventory = new_player.potion_inventory + 1; 
         int potion_count = new_player.potion_inventory;
         return potion_count;
     }
     
+    /**
+     * Subtracts a potion from the potion inventory by integer count
+     * @param new_player the same player used throughout the game 
+     * @return the updated potion count
+     */
     public int subtract_potion(Player new_player) {
         new_player.potion_inventory = new_player.potion_inventory - 1; 
         int potion_count = new_player.potion_inventory;
         return potion_count; 
     }
     
-    //basic raise health by 25 
+    /**
+     * Raises the player health by integer count (25 at a time) 
+     * @param new_player the same player used throughout the game 
+     * @return the updated health count 
+     */
     public int raise_health(Player new_player) {        
         new_player.health = new_player.health +25; 
         return new_player.health;
     }
     
-    //basic lower health by 1 
+    /**
+     * Lowers the player health by integer count (1 at a time)
+     * @param new_player the same player used throughout the game 
+     * @return the updated health count
+     */
     public int lower_health(Player new_player) {        
         new_player.health --; 
         return new_player.health;
     }
     
-    //print the map 
+    /**
+     * Prints the crypt, includes floorplan, player, and monsters
+     * @param new_crypt the same crypt used throughout the game 
+     */
     public void view_map(Crypt new_crypt) {
         new_crypt.printMap();
     } 
