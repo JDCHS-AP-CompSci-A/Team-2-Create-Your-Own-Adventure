@@ -13,6 +13,7 @@ public class Menu {
     private Scanner sc = new Scanner(System.in); 
     private Player new_player; 
     private Crypt new_crypt = new Crypt(); 
+    
     /**
      * Constructor takes in a player and a crypt
      * @param new_player the same player used throughout the game 
@@ -33,7 +34,7 @@ public class Menu {
     }
     
     /**
-     * Takes in an integer that player types in (single numbered selection)
+     * Takes in and return an integer that player types in (string because player must type 'enter') 
      * @return the integer typed in by player
      */
     public int input_selection() {       
@@ -247,6 +248,7 @@ public class Menu {
     
     /**
      * Raises player health by 25 and lowers potion count by 1 
+     * Ensures that potion can be used only when there are potions
      */
     public void use_potion() {
         if (new_player.potion_inventory > 0) {
@@ -402,10 +404,12 @@ public class Menu {
     }
     
     /**
-     * Allows player to drop an item from inventory
+     * Allows player to drop an item from inventory (cannot drop if inventory empty) 
      * @param new_player the same player used throughout the game 
      */
     public void drop_item_menu(Player new_player) {
+        
+        int size = new_player.inventory.size(); 
         
         System.out.println("\nWhich item would you like to drop? (Input number next to item)");
         new_player.toString(); 
@@ -413,22 +417,48 @@ public class Menu {
         int selection = input_selection(); 
         
         //allows player to select a number to drop item
-        switch (selection) {
-            case 1:
+        if (selection == 1) {
+            if (size >= 1) {
                 new_player.remove_item(0);
-                break;
-            case 2:
-                new_player.remove_item(1);
-                break;
-            case 3:
-                new_player.remove_item(2);
-                break;
-            case 4:
-                new_player.remove_item(3);
-                break;
-            default:
+            }
+            
+            else {
                 System.out.println("That is an invalid command.");
-                break; 
+            }
+        }
+        
+        else if (selection == 2) {
+            if (size >= 2) {
+                new_player.remove_item(1);
+            }
+            
+            else {
+                System.out.println("That is an invalid command.");
+            }
+        }
+        
+        else if (selection == 3) {
+            if (size >= 3) {
+                new_player.remove_item(2);
+            }
+            
+            else {
+                System.out.println("That is an invalid command.");
+            }
+        }
+        
+        else if (selection == 4) {
+            if (size >= 4) {
+                new_player.remove_item(3);
+            }
+            
+            else {
+                System.out.println("That is an invalid command.");
+            }
+        }
+       
+        else {            
+            System.out.println("That is an invalid command.");
         }
         
         System.out.println("\nHere is your updated inventory: ");
@@ -450,6 +480,7 @@ public class Menu {
     
     /**
      * Subtracts a potion from the potion inventory by integer count
+     * Will only be called when potions exist
      * @param new_player the same player used throughout the game 
      * @return the updated potion count
      */
@@ -480,7 +511,7 @@ public class Menu {
     }
     
     /**
-     * Prints the crypt, includes floorplan, player, and monsters
+     * Prints the crypt, includes floor plan, player, and monsters
      * @param new_crypt the same crypt used throughout the game 
      */
     public void view_map(Crypt new_crypt) {

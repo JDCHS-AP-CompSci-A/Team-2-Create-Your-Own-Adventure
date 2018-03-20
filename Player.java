@@ -18,22 +18,32 @@ public class Player {
     
     Player(){ 
     }
+    
     public void add_GS(){
         Weapon GodSword = new Weapon("God Sword", 1000, 1000, 100);
     this.inventory.add(GodSword);
     }
             
-    //add item
+    /**
+     * Adds item to player's weapon inventory
+     * @param item the item to be added to the inventory
+     */
     public void add_item(Weapon item) {
         inventory.add(item); 
     }
        
-    //remove item
+    /**
+     * Removes an item from the player's weapon inventory
+     * @param i the integer selected by player that corresponds with the weapon in inventory
+     */
     public void remove_item(int i) {
         inventory.remove(i); 
     }
     
-    //print inventory
+    /**
+     * Prints the complete weapon inventory as well as potion count 
+     * @return a space after printing inventory
+     */
     public String toString() {
         
         for (int i = 0; i < inventory.size(); i++) {
