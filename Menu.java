@@ -352,12 +352,14 @@ public class Menu {
         
         Weapon selected; 
         System.out.println(new_player.toString()); 
-        int selection = input_selection(); 
+        int selection = input_selection();
+        
         
         //select first item
         if (selection == 1) {
             System.out.println("You selected " + new_player.inventory.get(0).name + ".");
-            selected = new_player.inventory.get(0); 
+            selected = new_player.inventory.get(0);
+            return selected;
         }  
         
         //select second item if exist
@@ -365,10 +367,12 @@ public class Menu {
             if (size >= 2) {
                 System.out.println("You selected " + new_player.inventory.get(1).name + ".");
                 selected = new_player.inventory.get(1); 
+                return selected;
             }
             else {
                 System.out.println("That is an invalid selection.");
                 weapon_selection(new_player); 
+                
             }
         }  
         
@@ -376,11 +380,13 @@ public class Menu {
         else if (selection == 3) {
             if (size >= 3) {
                 System.out.println("You selected " + new_player.inventory.get(2).name + ".");
-                selected = new_player.inventory.get(3); 
+                selected = new_player.inventory.get(3);
+                return selected;
             }
             else {
                 System.out.println("That is an invalid selection.");
-                weapon_selection(new_player); 
+                weapon_selection(new_player);
+                
             }           
         }  
         
@@ -388,7 +394,8 @@ public class Menu {
         else if (selection == 4) {
             if (size >= 4) {
                 System.out.println("you selected " + new_player.inventory.get(3).name + ".");
-                selected = new_player.inventory.get(4); 
+                selected = new_player.inventory.get(4);
+                return selected;
             }
             else {
                 System.out.println("That is an invalid selection.");
@@ -400,7 +407,8 @@ public class Menu {
             System.out.println("That is an invalid selection.");
             weapon_selection(new_player); 
         }
-        return selected; 
+        return null;
+         
     }
     
     /**
