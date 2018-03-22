@@ -136,14 +136,10 @@ public class Menu {
 
     }
     
-<<<<<<< HEAD
+
     //battle menu
     public void battle_menu(Monster monster,int pos) {
-=======
-    public void battle_menu() {
->>>>>>> 19f3e62ed381c5ecb2d31c57b2d0d6421ab2af6f
-        //later will change so that actual monster name is displayed
-        System.out.println("A monster has approached you. Would you like to 'ATTACK', 'INSEPCT' the monster, or 'RUN'?");
+
         
         String selection = input_command(); 
 
@@ -401,11 +397,9 @@ public class Menu {
         else if (selection == 3) {
             if (size >= 3) {
                 System.out.println("You selected " + new_player.inventory.get(2).name + ".");
-<<<<<<< HEAD
+
                 selected = new_player.inventory.get(3); 
-=======
-                selected = new_player.inventory.get(3);
->>>>>>> 19f3e62ed381c5ecb2d31c57b2d0d6421ab2af6f
+
                 return selected;
             }
             else {
@@ -419,11 +413,9 @@ public class Menu {
         else if (selection == 4) {
             if (size >= 4) {
                 System.out.println("you selected " + new_player.inventory.get(3).name + ".");
-<<<<<<< HEAD
+
                 selected = new_player.inventory.get(4); 
-=======
-                selected = new_player.inventory.get(4);
->>>>>>> 19f3e62ed381c5ecb2d31c57b2d0d6421ab2af6f
+
                 return selected;
             }
             else {
