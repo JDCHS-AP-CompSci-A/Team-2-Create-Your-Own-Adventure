@@ -14,18 +14,29 @@ public class Menu {
     private Player new_player; 
     private Crypt new_crypt = new Crypt(); 
     
+    /**
+     * Constructor takes in a player and a crypt
+     * @param new_player the same player used throughout the game 
+     * @param new_crypt the same crypt created and used throughout the game 
+     */
     Menu(Player new_player, Crypt new_crypt) {
         this.new_player = new_player;
         this.new_crypt = new_crypt; 
     }
     
-    //function to type in commands
+    /**
+     * Takes in a string (command) that player types in 
+     * @return the string typed in by player
+     */
     public String input_command() { 
         String input_command = sc.nextLine();        
         return input_command; 
     }
     
-    //function to type in a numbered selection
+    /**
+     * Takes in and return an integer that player types in (string because player must type 'enter') 
+     * @return the integer typed in by player
+     */
     public int input_selection() {       
         String input_selection = sc.nextLine();
         //convert String input_selection to integer
@@ -33,7 +44,9 @@ public class Menu {
         return result; 
     }
     
-    //introduction menu
+    /**
+     * Prints introduction, then goes to main_menu()
+     */
     public void intro_menu() {
         System.out.println("introduction in progress");
         System.out.println("'@' = a monster"); 
@@ -41,6 +54,12 @@ public class Menu {
         main_menu(); 
     }
     
+    /**
+     * Checks if there is a monster on the tile that the player is on
+     * @param new_player same player used throughout the game
+     * @param new_crypt same crypt created and used 
+     * @return whether a monster exists or not (true = monster exists) 
+     */
     public boolean check_if_monster(Player new_player, Crypt new_crypt) {
         
         int i = new_player.position;
@@ -52,22 +71,15 @@ public class Menu {
         return true;        
     }
     
-    //main menu commands
+    /**
+     * Main menu that allows player to input a variety of commands when passive
+     */
     public void main_menu() {
         
         if (check_if_monster(new_player, new_crypt)) {
             battle_menu(new_crypt.floorplan.get(new_player.position).monster,new_player.position);          
         }
         
-        /*if room/tile where player is on has monster, go to battle_menu(), else continue below
-        
-        if(      ) {
-            battle_menu() 
-        }
-        else {
-            continue;
-        }
-        */
         System.out.println(" \nWhat would you like to do? (Type 'HELP' for a list of commands)\n"); 
         
         String selection = input_command(); 
@@ -124,8 +136,12 @@ public class Menu {
 
     }
     
+<<<<<<< HEAD
     //battle menu
     public void battle_menu(Monster monster,int pos) {
+=======
+    public void battle_menu() {
+>>>>>>> 19f3e62ed381c5ecb2d31c57b2d0d6421ab2af6f
         //later will change so that actual monster name is displayed
         System.out.println("A monster has approached you. Would you like to 'ATTACK', 'INSEPCT' the monster, or 'RUN'?");
         
@@ -169,7 +185,10 @@ public class Menu {
         }
     }
     
-    //pick up item
+    /**
+     * Adds a weapon to player inventory of weapons
+     * @param item the item that the player is going to pick up 
+     */
     public void pickup_item(Weapon item) {
         new_player.add_item(item);
     }
@@ -198,13 +217,13 @@ public class Menu {
     //inspect room, if monster, item, or potion exists battle or asks to pick up
     public void inspect_room_menu () {
         
-        if (/*monster exists*/) {
+        if (check_if_monster(new_player, new_crypt)) {
             battle_menu();  
       
         }
-        if (/*item exists*/) {
-            System.out.println("There is a " /*+ Item name */ + "in this room.");
-            System.out.println("Would you like to pick up " /*+ Item name */ + "?");
+        if (/*weapon exists*/) {
+            System.out.println("There is a " /*+ Weapon name */ + "in this room.");
+            System.out.println("Would you like to pick up " /*+ Weapon name */ + "?");
             
             String command = input_command(); 
             
@@ -242,7 +261,10 @@ public class Menu {
         room_scenario(); 
     }
     
-    //use a potion
+    /**
+     * Raises player health by 25 and lowers potion count by 1 
+     * Ensures that potion can be used only when there are potions
+     */
     public void use_potion() {
         if (new_player.potion_inventory > 0) {
             System.out.println("\nA potion has been used.");
@@ -259,15 +281,18 @@ public class Menu {
             main_menu();
         }
     }
-    //movement menu
+    
+    /**
+     * Allows player to move forward, backwards, or enter a room
+     */
     public void move_menu() {
         
-        System.out.println("\nWould you like to move 'FOWARD', 'BACKWARDS', or 'ENTER ROOM'?\n"); 
+        System.out.println("\nWould you like to move 'FORWARD', 'BACKWARDS', or 'ENTER ROOM'?\n"); 
         
         String selection = input_command(); 
         
-        //move foward
-        if (selection.equalsIgnoreCase("FOWARD")) {
+        //move forward
+        if (selection.equalsIgnoreCase("FORWARD")) {
             if (new_player.position > 0) {
                 new_player.position--;
                 new_crypt.move_foward(new_player, new_player.position);
@@ -282,6 +307,7 @@ public class Menu {
         
         //move backwards
         if (selection.equalsIgnoreCase("BACKWARDS")) {
+            //check to make sure that can move backwards (not at beginning of hall) 
             if (new_player.position < 10) {
                 new_player.position++;
                 new_crypt.move_backward(new_player, new_player.position);
@@ -297,9 +323,9 @@ public class Menu {
         
         //enter room
         if (selection.equalsIgnoreCase("ENTER ROOM")) {                        
-            //check if room
-            //call room 
-            room_scenario(); 
+            if (check_if_room(new_player, new_crypt)) {
+                room_scenario(); 
+            }            
         }
         
         else {
@@ -308,7 +334,32 @@ public class Menu {
         }
     }
     
-    //allows player to select a weapon for battle, will only be called if there is at least on item in inventory
+    /**
+     * Checks to see if a room exists directly adjacent to player
+     * @param new_player the same player used throughout the game 
+     * @param new_crypt the same crypt used throughout the game 
+     * @return whether or not the room exists (true = room exists)
+     */
+    public boolean check_if_room(Player new_player, Crypt new_crypt) {
+        int i = new_player.position;
+        Tile new_tile = new_crypt.floorplan.get(i);
+        
+        boolean room_exists = false;
+        if (new_tile.RoomL != null) {
+            room_exists = true;
+        }
+        
+        if (new_tile.RoomR != null) {
+            room_exists = true;
+        }
+        return room_exists;  
+    }
+    
+    /**
+     * Allows player to select a weapon, will only be called if inventory is not null
+     * @param new_player the same player used throughout the game 
+     * @return the weapon selected
+     */
     public Weapon weapon_selection(Player new_player) {
         int size = new_player.inventory.size(); 
 
@@ -316,12 +367,17 @@ public class Menu {
         
         Weapon selected; 
         System.out.println(new_player.toString()); 
-        int selection = input_selection(); 
+        int selection = input_selection();
+        
         
         //select first item
         if (selection == 1) {
             System.out.println("You selected " + new_player.inventory.get(0).name + ".");
+<<<<<<< HEAD
             selected = new_player.inventory.get(0); 
+=======
+            selected = new_player.inventory.get(0);
+>>>>>>> 19f3e62ed381c5ecb2d31c57b2d0d6421ab2af6f
             return selected;
         }  
         
@@ -335,6 +391,7 @@ public class Menu {
             else {
                 System.out.println("That is an invalid selection.");
                 weapon_selection(new_player); 
+                
             }
         }  
         
@@ -342,12 +399,17 @@ public class Menu {
         else if (selection == 3) {
             if (size >= 3) {
                 System.out.println("You selected " + new_player.inventory.get(2).name + ".");
+<<<<<<< HEAD
                 selected = new_player.inventory.get(3); 
+=======
+                selected = new_player.inventory.get(3);
+>>>>>>> 19f3e62ed381c5ecb2d31c57b2d0d6421ab2af6f
                 return selected;
             }
             else {
                 System.out.println("That is an invalid selection.");
-                weapon_selection(new_player); 
+                weapon_selection(new_player);
+                
             }           
         }  
         
@@ -355,7 +417,11 @@ public class Menu {
         else if (selection == 4) {
             if (size >= 4) {
                 System.out.println("you selected " + new_player.inventory.get(3).name + ".");
+<<<<<<< HEAD
                 selected = new_player.inventory.get(4); 
+=======
+                selected = new_player.inventory.get(4);
+>>>>>>> 19f3e62ed381c5ecb2d31c57b2d0d6421ab2af6f
                 return selected;
             }
             else {
@@ -368,13 +434,17 @@ public class Menu {
             System.out.println("That is an invalid selection.");
             weapon_selection(new_player); 
         }
-        return selected; 
+        return null;
+         
     }
     
-    
-    
-    //menu to drop an item 
+    /**
+     * Allows player to drop an item from inventory (cannot drop if inventory empty) 
+     * @param new_player the same player used throughout the game 
+     */
     public void drop_item_menu(Player new_player) {
+        
+        int size = new_player.inventory.size(); 
         
         System.out.println("\nWhich item would you like to drop? (Input number next to item)");
         new_player.toString(); 
@@ -382,22 +452,48 @@ public class Menu {
         int selection = input_selection(); 
         
         //allows player to select a number to drop item
-        switch (selection) {
-            case 1:
+        if (selection == 1) {
+            if (size >= 1) {
                 new_player.remove_item(0);
-                break;
-            case 2:
-                new_player.remove_item(1);
-                break;
-            case 3:
-                new_player.remove_item(2);
-                break;
-            case 4:
-                new_player.remove_item(3);
-                break;
-            default:
+            }
+            
+            else {
                 System.out.println("That is an invalid command.");
-                break; 
+            }
+        }
+        
+        else if (selection == 2) {
+            if (size >= 2) {
+                new_player.remove_item(1);
+            }
+            
+            else {
+                System.out.println("That is an invalid command.");
+            }
+        }
+        
+        else if (selection == 3) {
+            if (size >= 3) {
+                new_player.remove_item(2);
+            }
+            
+            else {
+                System.out.println("That is an invalid command.");
+            }
+        }
+        
+        else if (selection == 4) {
+            if (size >= 4) {
+                new_player.remove_item(3);
+            }
+            
+            else {
+                System.out.println("That is an invalid command.");
+            }
+        }
+       
+        else {            
+            System.out.println("That is an invalid command.");
         }
         
         System.out.println("\nHere is your updated inventory: ");
@@ -406,32 +502,53 @@ public class Menu {
         main_menu();    
     }   
     
-    //add potion to potion inventory
+    /**
+     * Adds a potion to the potion inventory by integer count
+     * @param new_player the same player used throughout the game 
+     * @return the updated potion count
+     */
     public int add_potion(Player new_player) {
         new_player.potion_inventory = new_player.potion_inventory + 1; 
         int potion_count = new_player.potion_inventory;
         return potion_count;
     }
     
+    /**
+     * Subtracts a potion from the potion inventory by integer count
+     * Will only be called when potions exist
+     * @param new_player the same player used throughout the game 
+     * @return the updated potion count
+     */
     public int subtract_potion(Player new_player) {
         new_player.potion_inventory = new_player.potion_inventory - 1; 
         int potion_count = new_player.potion_inventory;
         return potion_count; 
     }
     
-    //basic raise health by 25 
+    /**
+     * Raises the player health by integer count (25 at a time) 
+     * @param new_player the same player used throughout the game 
+     * @return the updated health count 
+     */
     public int raise_health(Player new_player) {        
         new_player.health = new_player.health +25; 
         return new_player.health;
     }
     
-    //basic lower health by 1 
+    /**
+     * Lowers the player health by integer count (1 at a time)
+     * @param new_player the same player used throughout the game 
+     * @return the updated health count
+     */
     public int lower_health(Player new_player) {        
         new_player.health --; 
         return new_player.health;
     }
     
-    //print the map 
+    /**
+     * Prints the crypt, includes floor plan, player, and monsters
+     * @param new_crypt the same crypt used throughout the game 
+     */
     public void view_map(Crypt new_crypt) {
         new_crypt.printMap();
     } 
