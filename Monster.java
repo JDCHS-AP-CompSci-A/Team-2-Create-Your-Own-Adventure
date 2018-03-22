@@ -1,6 +1,6 @@
 
 public class Monster {
-  int health;
+  double health;
   String name;
 
 }

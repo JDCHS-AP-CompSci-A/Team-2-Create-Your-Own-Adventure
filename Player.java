@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Player {
     
     int position = 10; 
-    int health = 100;
+    double health = 100;
     int potion_inventory = 0; 
     ArrayList <Weapon> inventory = new ArrayList <Weapon>(); 
     

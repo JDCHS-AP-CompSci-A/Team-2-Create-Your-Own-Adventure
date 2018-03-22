@@ -56,7 +56,7 @@ public class Menu {
     public void main_menu() {
         
         if (check_if_monster(new_player, new_crypt)) {
-            battle_menu();          
+            battle_menu(new_crypt.floorplan.get(new_player.position).monster,new_player.position);          
         }
         
         /*if room/tile where player is on has monster, go to battle_menu(), else continue below
@@ -125,7 +125,7 @@ public class Menu {
     }
     
     //battle menu
-    public void battle_menu() {
+    public void battle_menu(Monster monster,int pos) {
         //later will change so that actual monster name is displayed
         System.out.println("A monster has approached you. Would you like to 'ATTACK', 'INSEPCT' the monster, or 'RUN'?");
         
@@ -135,17 +135,27 @@ public class Menu {
         if (selection.equalsIgnoreCase("ATTACK")) {
             if (new_player.inventory.isEmpty()) {
                 System.out.println("You do not have any weapons to attack.");
-                battle_menu(); 
+                battle_menu(monster,pos); 
             }
             else {
-                Weapon selected_weapon = weapon_selection(new_player); 
-                //attack menu based on game controller   
+                Weapon selected_weapon = weapon_selection(new_player);
+                double damag = selected_weapon.attack();
+                  monster.health = monster.health-damag;
+                  if (monster.health<0){
+                     new_crypt.floorplan.get(pos).monster=null; 
+                     main_menu();
+                  }
+                  else{
+                  battle_menu(monster,pos);
+                  }
             }
         }
         
         else if (selection.equalsIgnoreCase("INSPECT")) {
             //print the description of the monster
-            battle_menu();
+            System.out.println(monster.name);
+            System.out.println(monster.health);
+            battle_menu(monster,pos);
         }
         
         else if (selection.equalsIgnoreCase("RUN")) {
@@ -155,7 +165,7 @@ public class Menu {
         
         else {
             System.out.println("That is an invalid command."); 
-            battle_menu(); 
+            battle_menu(monster,pos); 
         }
     }
     
@@ -312,6 +322,7 @@ public class Menu {
         if (selection == 1) {
             System.out.println("You selected " + new_player.inventory.get(0).name + ".");
             selected = new_player.inventory.get(0); 
+            return selected;
         }  
         
         //select second item if exist
@@ -319,6 +330,7 @@ public class Menu {
             if (size >= 2) {
                 System.out.println("You selected " + new_player.inventory.get(1).name + ".");
                 selected = new_player.inventory.get(1); 
+                return selected;
             }
             else {
                 System.out.println("That is an invalid selection.");
@@ -331,6 +343,7 @@ public class Menu {
             if (size >= 3) {
                 System.out.println("You selected " + new_player.inventory.get(2).name + ".");
                 selected = new_player.inventory.get(3); 
+                return selected;
             }
             else {
                 System.out.println("That is an invalid selection.");
@@ -343,6 +356,7 @@ public class Menu {
             if (size >= 4) {
                 System.out.println("you selected " + new_player.inventory.get(3).name + ".");
                 selected = new_player.inventory.get(4); 
+                return selected;
             }
             else {
                 System.out.println("That is an invalid selection.");
