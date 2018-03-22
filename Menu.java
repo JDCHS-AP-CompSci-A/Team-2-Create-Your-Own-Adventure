@@ -180,6 +180,7 @@ public class Menu {
     
     //ask to inspect room or leave
     public void room_scenario() {
+        
         System.out.println("\nWould you like to 'INSPECT ROOM' or 'LEAVE'?\n");
         
         String command = input_command(); 
@@ -197,6 +198,7 @@ public class Menu {
             System.out.println("That is an invalid command."); 
             room_scenario(); 
         }
+        
     }
     
     //inspect room, if monster, item, or potion exists battle or asks to pick up
@@ -213,7 +215,7 @@ public class Menu {
             String command = input_command(); 
             
             if (command.equalsIgnoreCase("YES")) {
-                pickup_item(item); 
+                new_player.add_item(item); 
             }
             
             else if (command.equalsIgnoreCase("NO")) {
