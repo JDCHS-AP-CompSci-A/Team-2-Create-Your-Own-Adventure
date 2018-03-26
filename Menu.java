@@ -234,7 +234,9 @@ public class Menu {
         
     }
     
-    //inspect room, if monster, item, or potion exists battle or asks to pick up
+    /**
+     * Allow player to battle monster if any and/or pick up weapons if any
+     */
     public void inspect_room_menu () {
         
         int i = new_player.position;
@@ -246,7 +248,7 @@ public class Menu {
         }
         if (check_if_weapon(new_player, new_crypt)) {
             System.out.println("There is a " + new_tile.weapon.name + "in this room.");
-            System.out.println("Would you like to pick up " + new_tile.weapon.name + "?");
+            System.out.println("Would you like to pick up " + new_tile.weapon.name + "? (YES or NO)");
              
             String command = input_command(); 
             
