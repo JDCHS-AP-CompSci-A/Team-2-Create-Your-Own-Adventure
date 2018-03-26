@@ -32,6 +32,9 @@ public class Tile {
             if (RoomR.monster!=null){
                 R="[@]";
             }
+            else if(RoomR.weapon!=null){
+            R="[?]";
+            }
             else {
                 R="[ ]";
             }
@@ -39,6 +42,9 @@ public class Tile {
         if (RoomL!=null){
             if (RoomL.monster!=null){
                 L="[@]";
+            }
+            else if(RoomL.weapon!=null){
+            L="[?]";
             }
             else{
                 L="[ ]";
