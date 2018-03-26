@@ -81,11 +81,21 @@ public class Crypt {
         floorplan.add(new_tile);
     }
     
+    /**
+     * Physically move player forward to next tile 
+     * @param new_player the current player 
+     * @param i new position of the player  
+     */
     public void move_foward(Player new_player, int i) { 
         floorplan.get(i).addPlayer(new_player);
         floorplan.get(i+1).removePlayer(new_player);     
     }
     
+    /**
+     * Physically move player back a tile
+     * @param new_player the current player
+     * @param i new position of the player
+     */
     public void move_backward(Player new_player, int i) {
         floorplan.get(i).addPlayer(new_player);
         floorplan.get(i-1).removePlayer(new_player);
@@ -112,6 +122,10 @@ public class Crypt {
         Weapon GodSword = new Weapon("God Sword", 1000, 1000, 100);
         this.Weapon_db.add(GodSword);
     }
+    
+    /**
+     * Prints the crypt tile by tile with any player/monster on the tile
+     */
     public void printMap(){
         for (int i = 0; i<this.floorplan.size(); i++){
             Tile tile = this.floorplan.get(i);

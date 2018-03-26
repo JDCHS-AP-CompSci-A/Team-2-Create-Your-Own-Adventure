@@ -32,18 +32,7 @@ public class Menu {
         String input_command = sc.nextLine();        
         return input_command; 
     }
-    
-    /**
-     * Takes in and return an integer that player types in (string because player must type 'enter') 
-     * @return the integer typed in by player
-     */
-    public int input_selection() {       
-        String input_selection = sc.nextLine();
-        //convert String input_selection to integer
-        Integer result = Integer.valueOf(input_selection);
-        return result; 
-    }
-    
+     
     /**
      * Prints introduction, then goes to main_menu()
      */
@@ -71,6 +60,12 @@ public class Menu {
         return true;        
     }
     
+    /**
+     * Checks if there is a weapon on the tile that the player is on    
+     * @param new_player same player used throughout the game 
+     * @param new_crypt same crypt created and used
+     * @return whether a weapon exists or not (true = weapon exists)
+     */
     public boolean check_if_weapon(Player new_player, Crypt new_crypt) {
         
         int i = new_player.position;
@@ -212,6 +207,8 @@ public class Menu {
     }
     
     //ask to inspect room or leave
+    //*****STILL NEED TO WORK ON THIS
+    
     public void room_scenario() {
         
         System.out.println("\nWould you like to 'INSPECT ROOM' or 'LEAVE'?\n");
@@ -262,6 +259,7 @@ public class Menu {
             
             else {
                 System.out.println("That is an invalid command."); 
+                inspect_room_menu();
             }            
         }
     
@@ -374,18 +372,18 @@ public class Menu {
         
         Weapon selected; 
         System.out.println(new_player.toString()); 
-        int selection = input_selection();
+        String selection = input_command();
         
         
         //select first item
-        if (selection == 1) {
+        if (selection.equalsIgnoreCase("1")) {
             System.out.println("You selected " + new_player.inventory.get(0).name + ".");
             selected = new_player.inventory.get(0);
             return selected;
         }  
         
         //select second item if exist
-        else if (selection == 2) {
+        else if (selection.equalsIgnoreCase("2")) {
             if (size >= 2) {
                 System.out.println("You selected " + new_player.inventory.get(1).name + ".");
                 selected = new_player.inventory.get(1); 
@@ -398,7 +396,7 @@ public class Menu {
         }  
         
         //select third item if exist
-        else if (selection == 3) {
+        else if (selection.equalsIgnoreCase("3")) {
             if (size >= 3) {
                 System.out.println("You selected " + new_player.inventory.get(2).name + ".");
 
@@ -413,7 +411,7 @@ public class Menu {
         }  
         
         //select fourth item if exist
-        else if (selection == 4) {
+        else if (selection.equalsIgnoreCase("4")) {
             if (size >= 4) {
                 System.out.println("you selected " + new_player.inventory.get(3).name + ".");
 
@@ -446,10 +444,10 @@ public class Menu {
         System.out.println("\nWhich item would you like to drop? (Input number next to item)");
         new_player.toString(); 
             
-        int selection = input_selection(); 
+        String selection = input_command(); 
         
         //allows player to select a number to drop item
-        if (selection == 1) {
+        if (selection.equalsIgnoreCase("1")) {
             if (size >= 1) {
                 new_player.remove_item(0);
             }
@@ -459,7 +457,7 @@ public class Menu {
             }
         }
         
-        else if (selection == 2) {
+        else if (selection.equalsIgnoreCase("2")) {
             if (size >= 2) {
                 new_player.remove_item(1);
             }
@@ -469,7 +467,7 @@ public class Menu {
             }
         }
         
-        else if (selection == 3) {
+        else if (selection.equalsIgnoreCase("3")) {
             if (size >= 3) {
                 new_player.remove_item(2);
             }
@@ -479,7 +477,7 @@ public class Menu {
             }
         }
         
-        else if (selection == 4) {
+        else if (selection.equalsIgnoreCase("4")) {
             if (size >= 4) {
                 new_player.remove_item(3);
             }
