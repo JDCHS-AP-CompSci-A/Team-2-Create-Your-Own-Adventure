@@ -71,14 +71,24 @@ public class Menu {
         return true;        
     }
     
+    public boolean check_if_weapon(Player new_player, Crypt new_crypt) {
+        
+        int i = new_player.position;
+        Tile new_tile = new_crypt.floorplan.get(i);
+        
+        if (new_tile.weapon == null) {
+            return false; 
+        }
+        
+        return true; 
+    }
+    
     /**
      * Main menu that allows player to input a variety of commands when passive
      */
     public void main_menu() {
         
-        if (check_if_monster(new_player, new_crypt)) {
-            battle_menu(new_crypt.floorplan.get(new_player.position).monster,new_player.position);          
-        }
+       
         
         System.out.println(" \nWhat would you like to do? (Type 'HELP' for a list of commands)\n"); 
         
@@ -106,8 +116,11 @@ public class Menu {
             view_map(new_crypt); 
             main_menu(); 
         }
-        //leads to move menu
+        //leads to move menu, only if no monster.
         else if (selection.equalsIgnoreCase("MOVE")) {
+            if (check_if_monster(new_player, new_crypt)) {
+                battle_menu(new_crypt.floorplan.get(new_player.position).monster,new_player.position);          
+            }
             move_menu(); 
         }
         
@@ -136,10 +149,14 @@ public class Menu {
 
     }
     
-
-    //battle menu
+    /**
+     * Sequence to attack the monster, display the description, or to run away. 
+     * @param monster the  monster on the current tile the player is on
+     * @param pos the integer of the position of the player
+     */
     public void battle_menu(Monster monster,int pos) {
 
+        System.out.println("There is a monster. Would you like to 'ATTACK', 'INSPECT', or 'RUN'?");
         
         String selection = input_command(); 
 
@@ -152,21 +169,26 @@ public class Menu {
             else {
                 Weapon selected_weapon = weapon_selection(new_player);
                 double damag = selected_weapon.attack();
-                  monster.health = monster.health-damag;
-                  if (monster.health<0){
-                     new_crypt.floorplan.get(pos).monster=null; 
-                     main_menu();
-                  }
-                  else{
-                  battle_menu(monster,pos);
-                  }
+                monster.health = monster.health-damag;
+                
+                //when monster is dead, remove monster from tile and award player with a potion
+                if (monster.health<0){
+                    new_crypt.floorplan.get(pos).monster = null; 
+                    System.out.println("You have killed the monster and gained 1 potion.");
+                    add_potion(new_player);
+                    main_menu();
+                }
+                
+                else {
+                   battle_menu(monster,pos);
+                }
             }
         }
         
         else if (selection.equalsIgnoreCase("INSPECT")) {
             //print the description of the monster
             System.out.println(monster.name);
-            System.out.println(monster.health);
+            System.out.println("Health: " + monster.health);
             battle_menu(monster,pos);
         }
         
@@ -212,21 +234,26 @@ public class Menu {
         
     }
     
-    //inspect room, if monster, item, or potion exists battle or asks to pick up
+    /**
+     * Allow player to battle monster if any and/or pick up weapons if any
+     */
     public void inspect_room_menu () {
         
+        int i = new_player.position;
+        Tile new_tile = new_crypt.floorplan.get(i);
+        
         if (check_if_monster(new_player, new_crypt)) {
-            battle_menu();  
+            battle_menu(new_crypt.floorplan.get(new_player.position).monster,new_player.position);  
       
         }
-        if (/*weapon exists*/) {
-            System.out.println("There is a " /*+ Weapon name */ + "in this room.");
-            System.out.println("Would you like to pick up " /*+ Weapon name */ + "?");
-            
+        if (check_if_weapon(new_player, new_crypt)) {
+            System.out.println("There is a " + new_tile.weapon.name + "in this room.");
+            System.out.println("Would you like to pick up " + new_tile.weapon.name + "? (YES or NO)");
+             
             String command = input_command(); 
             
             if (command.equalsIgnoreCase("YES")) {
-                new_player.add_item(item); 
+                new_player.add_item(new_tile.weapon); 
             }
             
             else if (command.equalsIgnoreCase("NO")) {
@@ -238,24 +265,6 @@ public class Menu {
             }            
         }
     
-        if (/*potion exists*/) {
-            System.out.println("There is a potion in this room.");
-            System.out.println("Would you like to pick up the potion?"); 
-            
-            String command = input_command(); 
-            
-            if (command.equalsIgnoreCase("YES")) {
-                add_potion(new_player);
-            }
-            
-            else if (command.equalsIgnoreCase("NO")) {
-                room_scenario(); 
-            }
-            
-            else {
-                System.out.println("That is an invalid command."); 
-            }
-        } 
         room_scenario(); 
     }
     
@@ -371,11 +380,7 @@ public class Menu {
         //select first item
         if (selection == 1) {
             System.out.println("You selected " + new_player.inventory.get(0).name + ".");
-<<<<<<< HEAD
-            selected = new_player.inventory.get(0); 
-=======
             selected = new_player.inventory.get(0);
->>>>>>> 19f3e62ed381c5ecb2d31c57b2d0d6421ab2af6f
             return selected;
         }  
         
@@ -388,8 +393,7 @@ public class Menu {
             }
             else {
                 System.out.println("That is an invalid selection.");
-                weapon_selection(new_player); 
-                
+                weapon_selection(new_player);                 
             }
         }  
         
@@ -404,8 +408,7 @@ public class Menu {
             }
             else {
                 System.out.println("That is an invalid selection.");
-                weapon_selection(new_player);
-                
+                weapon_selection(new_player);   
             }           
         }  
         
@@ -520,21 +523,21 @@ public class Menu {
     }
     
     /**
-     * Raises the player health by integer count (25 at a time) 
+     * Raises the player health by double count (25 at a time) 
      * @param new_player the same player used throughout the game 
      * @return the updated health count 
      */
-    public int raise_health(Player new_player) {        
+    public double raise_health(Player new_player) {        
         new_player.health = new_player.health +25; 
         return new_player.health;
     }
     
     /**
-     * Lowers the player health by integer count (1 at a time)
+     * Lowers the player health by double count (1 at a time)
      * @param new_player the same player used throughout the game 
      * @return the updated health count
      */
-    public int lower_health(Player new_player) {        
+    public double lower_health(Player new_player) {        
         new_player.health --; 
         return new_player.health;
     }

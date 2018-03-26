@@ -5,7 +5,7 @@ public class Tile {
     boolean Room;
     Monster monster;
     Player player;
-    Weapon item;
+    Weapon weapon;
     Desc RoomL;
     Desc RoomR;
     int Pos;
@@ -18,7 +18,7 @@ public class Tile {
         this.player = player;
     }
     public void addItem(Weapon item){
-        this.item = item;
+        this.weapon = item;
     }
     
     public void removePlayer(Player player){
