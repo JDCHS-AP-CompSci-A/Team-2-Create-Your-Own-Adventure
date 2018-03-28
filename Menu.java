@@ -82,7 +82,9 @@ public class Menu {
      * Main menu that allows player to input a variety of commands when passive
      */
     public void main_menu() {
-        
+        if (check_if_monster(new_player, new_crypt)) {
+                battle_menu(new_crypt.floorplan.get(new_player.position).monster,new_player.position);          
+            }
        
         
         System.out.println(" \nWhat would you like to do? (Type 'HELP' for a list of commands)\n"); 
@@ -113,9 +115,7 @@ public class Menu {
         }
         //leads to move menu, only if no monster.
         else if (selection.equalsIgnoreCase("MOVE")) {
-            if (check_if_monster(new_player, new_crypt)) {
-                battle_menu(new_crypt.floorplan.get(new_player.position).monster,new_player.position);          
-            }
+            
             move_menu(); 
         }
         
@@ -250,8 +250,13 @@ public class Menu {
             String command = input_command(); 
             
             if (command.equalsIgnoreCase("YES")) {
-                new_player.add_item(RRoom.weapon);
-                new_player.add_item(LRoom.weapon);
+                if (RRoom.weapon != null) {
+                    new_player.add_item(RRoom.weapon);
+                }
+                if (LRoom.weapon != null) {
+                    new_player.add_item(LRoom.weapon);
+                }
+
             }
             
             else if (command.equalsIgnoreCase("NO")) {
