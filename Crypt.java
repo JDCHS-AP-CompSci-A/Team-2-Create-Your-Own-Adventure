@@ -119,7 +119,7 @@ public class Crypt {
     
     }
     public void fill_Wcat(){
-        Weapon GodSword = new Weapon("God Sword", 1000, 1000, 100);
+        Weapon GodSword = new Weapon("God Sword", 1000, 1000, .3);
         this.Weapon_db.add(GodSword);
     }
     

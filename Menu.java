@@ -66,16 +66,16 @@ public class Menu {
      * @param new_crypt same crypt created and used
      * @return whether a weapon exists or not (true = weapon exists)
      */
-    public boolean check_if_weapon(Player new_player, Crypt new_crypt) {
+    public boolean check_if_weapon(Player new_player, Crypt new_crypt, Tile RRoom, Tile LRoom) {
         
         int i = new_player.position;
         Tile new_tile = new_crypt.floorplan.get(i);
         
-        if (new_tile.weapon == null) {
+        if (RRoom.weapon == null&&LRoom.weapon==null) {
             return false; 
         }
-        
-        return true; 
+        else{
+        return true; }
     }
     
     /**
@@ -217,7 +217,7 @@ public class Menu {
         
         if (command.equalsIgnoreCase("INSPECT ROOM")) {
             //items + descriptions and room descriptions 
-            inspect_room_menu(); 
+            inspect_room_menu(new_crypt.floorplan.get(new_player.position).RoomL,new_crypt.floorplan.get(new_player.position).RoomR); 
         }
         
         else if (command.equalsIgnoreCase("LEAVE")) {
@@ -234,7 +234,7 @@ public class Menu {
     /**
      * Allow player to battle monster if any and/or pick up weapons if any
      */
-    public void inspect_room_menu () {
+    public void inspect_room_menu (Tile LRoom,Tile RRoom) {
         
         int i = new_player.position;
         Tile new_tile = new_crypt.floorplan.get(i);
@@ -243,14 +243,15 @@ public class Menu {
             battle_menu(new_crypt.floorplan.get(new_player.position).monster,new_player.position);  
       
         }
-        if (check_if_weapon(new_player, new_crypt)) {
-            System.out.println("There is a " + new_tile.weapon.name + "in this room.");
-            System.out.println("Would you like to pick up " + new_tile.weapon.name + "? (YES or NO)");
+        if (check_if_weapon(new_player, new_crypt,RRoom,LRoom)) {
+            System.out.println("There is a " + RRoom.weapon.name + LRoom.weapon.name + "in this room.");
+            System.out.println("Would you like to pick up " + RRoom.weapon.name+LRoom.weapon.name + "? (YES or NO)");
              
             String command = input_command(); 
             
             if (command.equalsIgnoreCase("YES")) {
-                new_player.add_item(new_tile.weapon); 
+                new_player.add_item(RRoom.weapon);
+                new_player.add_item(LRoom.weapon);
             }
             
             else if (command.equalsIgnoreCase("NO")) {
@@ -259,7 +260,7 @@ public class Menu {
             
             else {
                 System.out.println("That is an invalid command."); 
-                inspect_room_menu();
+                inspect_room_menu(LRoom,RRoom);
             }            
         }
     
