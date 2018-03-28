@@ -308,6 +308,7 @@ public class Menu {
             
             else {
                 System.out.println("You have made it to the end of the hall.");
+                new_crypt.genWorld();
             }
         }
         
