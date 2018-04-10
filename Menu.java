@@ -42,7 +42,8 @@ public class Menu {
         + " Printed above is a map.");
         System.out.println("'@' indicates rooms that contains a monster,");
         System.out.println("'?' indicates rooms that contains a weapon,");
-        System.out.println("'X' indicates your position.\n");
+        System.out.println("'X' indicates your position.");
+        System.out.println("You have been equipped with 1 weapon to begin.\n");
         main_menu(); 
     }
     

@@ -14,22 +14,21 @@ public class TW {
      */
     public static void main(String[] args) {
 
+        //Set up player and first weapon 
         Player new_player = new Player();
-//      Item test = new Item("Weapons");
-        Weapon weapon = new Weapon("Sword", 40, 25, .3);
-        Weapon weapon2= new Weapon("Gun", 55, 45, .6);
-        Weapon weapon3= new Weapon("Dagger", 65,53,.8);
-        System.out.println(weapon.attack());
-        new_player.add_item(weapon);
-        new_player.add_item(weapon2);
-        Crypt new_crypt = new Crypt();
-        Menu new_menu = new Menu(new_player, new_crypt);
         new_player.potion_inventory = 5;
+        Weapon first_weapon = new Weapon("Sword", 40, 25, .3);
+        new_player.add_item(first_weapon);
 
-        new_crypt.genWorld();
-        new_crypt.fill_cat();
-        new_crypt.fill_Rcat();
+        //Set up crypt 
+        Crypt new_crypt = new Crypt();
+        new_crypt.genWorld();       
         new_crypt.printMap();
+        
+        //Set up menu 
+        Menu new_menu = new Menu(new_player, new_crypt);      
+        
+        //Begin game 
         new_menu.intro_menu();
     }
 
