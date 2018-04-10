@@ -37,9 +37,12 @@ public class Menu {
      * Prints introduction, then goes to main_menu()
      */
     public void intro_menu() {
-        System.out.println("introduction in progress");
-        System.out.println("'@' = a monster"); 
-        System.out.println("'X' = player position\n");
+        System.out.println("Welcome to The Well. The goal is to reach the end of"
+        + " the hallway, by finding items, fighting monsters, and earning potions."
+        + " Printed above is a map.");
+        System.out.println("'@' indicates rooms that contains a monster,");
+        System.out.println("'?' indicates rooms that contains a weapon,");
+        System.out.println("'X' indicates your position.\n");
         main_menu(); 
     }
     
@@ -82,10 +85,6 @@ public class Menu {
      * Main menu that allows player to input a variety of commands when passive
      */
     public void main_menu() {
-        if (check_if_monster(new_player, new_crypt)) {
-                battle_menu(new_crypt.floorplan.get(new_player.position).monster,new_player.position);          
-            }
-       
         
         System.out.println(" \nWhat would you like to do? (Type 'HELP' for a list of commands)\n"); 
         
@@ -116,6 +115,10 @@ public class Menu {
         //leads to move menu, only if no monster.
         else if (selection.equalsIgnoreCase("MOVE")) {
             
+            //fix so that player is able to run and access other functions, instead of eternal loop if there is a monster
+            if (check_if_monster(new_player, new_crypt)) {        
+                battle_menu(new_crypt.floorplan.get(new_player.position).monster,new_player.position);                	
+            }
             move_menu(); 
         }
         
@@ -151,7 +154,7 @@ public class Menu {
      */
     public void battle_menu(Monster monster,int pos) {
 
-        System.out.println("There is a monster. Would you like to 'ATTACK', 'INSPECT', or 'RUN'?");
+        System.out.println("\nThere is a monster. Would you like to 'ATTACK', 'INSPECT', or 'RUN'?\n");
         
         String selection = input_command(); 
 
@@ -337,7 +340,11 @@ public class Menu {
         if (selection.equalsIgnoreCase("ENTER ROOM")) {                        
             if (check_if_room(new_player, new_crypt)) {
                 room_scenario(); 
-            }            
+            }    
+            else {
+                System.out.println("There is no room to enter.");
+                move_menu();
+            }
         }
         
         else {
